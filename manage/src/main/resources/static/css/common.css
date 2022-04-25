@@ -1,6 +1,6 @@
 body, html {
 	height: 100%;
-	font-family: "굴림1";
+	font-family: "A뉴굴림1";
 }
 body {
 	margin-top: 0;
@@ -11,8 +11,8 @@ body {
 	
 }
 @font-face {
-	font-family: "굴림1";
-	src: url("굴림1.TTF");
+	font-family: "A뉴굴림1";
+	src: url("A뉴굴림1.TTF");
 }
 
 .header {
@@ -150,6 +150,7 @@ body {
 .searchButton {
 	width: 95%;
 	height: 90%;
+	font-family: "A뉴굴림1";
 }
 .infoTbl {
 	width: 694px;
@@ -211,6 +212,7 @@ body {
 .btns {
 	width: 98px;
 	height: 40px;
+	font-family: "A뉴굴림1";
 	
 	
 }
