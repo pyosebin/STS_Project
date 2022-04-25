@@ -50,10 +50,13 @@ public class EmpService {
 		
 	}
 	
-//	public List<Employee> getEmpInfo2(String emp_id){
-//		return empMapper.getEmpInfo2(emp_id);
-//		
-//	}
+	public Integer update(Map<String, String> emp) {
+		return empMapper.update(emp);
+	}
+	
+	public Integer deleteEmpHobby(Map<String, String> emp) {
+		return empMapper.deleteEmpHobby(emp);
+	}
 	
 	
 }

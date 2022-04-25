@@ -55,5 +55,21 @@
     <delete id="deleteEmp" parameterType="String">
         delete from tbl_emp where emp_id = #{emp_id}
     </delete>
+    <update id="update" parameterType="hashMap">
+      merge
+          into tbl_emp
+          using tbl_dept
+          on (tbl_dept.dept_id = #{dept_id} AND tbl_emp.emp_id= #{emp_id})
+          when matched then
+              update
+                  set tbl_emp.emp_nm = #{emp_nm},
+                      tbl_emp.teleno = #{teleno},
+                      tbl_emp.road_nm = #{road_nm},
+                      tbl_emp.dept_id = tbl_dept.dept_id
+    </update>
+    <delete id="deleteEmpHobby" parameterType="hashMap">
+      delete from tbl_emp_hobby where emp_id = #{emp_id}
+    </delete> 
+
 
 </mapper>

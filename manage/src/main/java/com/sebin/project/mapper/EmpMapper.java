@@ -26,8 +26,11 @@ public interface EmpMapper {
 	
 	Integer deleteEmp(String emp_id);
 	
-}
-//	String regiEmp(Employee emp); 
+	Integer update(Map<String, String> emp);
+	
+	Integer deleteEmpHobby(Map<String, String> emp);
+	
 
-//	String regiHobby(Employee emp); 
+}
+
 

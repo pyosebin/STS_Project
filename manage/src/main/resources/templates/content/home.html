@@ -82,14 +82,17 @@
 		}
 	
 		function update(){
-			var hobbyChecked;
+			var hobbyChecked = "";
+			var hobbyId = ['01','02','03','04','05','06'];
 			
 			for(var i=0; i<6; i++){
-				hobbyChecked += $("input:checkbox[class=hobby]:checked").val()+",";
-			}
+				if($("input:checkbox[class=hobby][value='"+hobbyId[i]+"']").is(":checked") == true){
+					hobbyChecked += $("input:checkbox[class=hobby]:checked").val()+",";
+				}
 			
+			}
 			$("input[name=hobby_id]").val(hobbyChecked);
-			$("#infoForm").attr("action", "/home/register");
+			$("#infoForm").attr("action", "/home/update");
 			$("#infoForm").submit();
 		}
 		
@@ -106,14 +109,7 @@
 		}
 	</script>
 	<th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
-	<!--			$("input[name=hobby_id]").val(hobbyChecked);
-					var hobbyChecked;
-			
-			for(var i=0; i<6; i++){
-				if($("input:checkbox[class=hobby]:checked") == true){
-					hobbyChecked += $("input:checkbox[class=hobby]:checked").val()+",";
-				}
-			}-->
+	
 	<div layout:fragment="content" class="content">
 
 	<table class="manageTbl" border="1">
@@ -168,39 +164,6 @@
 		
 		</table>
 		</form>
-
-
-<!-- 
-		<table class="infoTbl" border="1">
-			<tr><th>ID</th><th>사원명</th><th>부서</th></tr>
-			<th:block th:each="employee : ${employeeList}">
-				<tr>
-					<td th:text="${ employee.emp_id }"></td>
-					<td th:text="${ employee.emp_nm }"></td>
-					<td th:text="${ employee.dept_nm }"></td>
-				</tr>
-			</th:block>
-		</table>
- -->		
- <!-- 
-		<table class="regiTbl" border="1">
-			<tr th:each="employee : ${employeeList}"><td width="20%">ID</td>
-		    	<td align="center" width="80%">
-				<input class="inputBox" th:text="${employee.emp_id}"></td></tr>
-			<tr><td width="20%">사원명</td>
-				<td align="center" width="80%">
-				<input class="inputBox" th:text="${employee.emp_nm}"></td></tr>
-			<tr><td>부서</td>
-				<td align="center" width="80%">
-				<input class="inputBox" th:text="${employee.dept_nm}"></td></tr>
-			<tr><td>전화번호</td><td align="center" width="80%">
-				<input class="inputBox" th:text="${employee.teleno}"></td></tr>
-			<tr><td>주소</td><td align="center" width="80%">
-				<input class="inputBox" th:text="${employee.road_nm}"></td></tr>
-			<tr><td>취미</td><td align="center" width="80%">				
-				<input class="inputBox" th:text="${employee.hobby_nm}"></td></tr>
-		</table>	
-  -->
 	</div>
 	<th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>
 </body>
