@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sebin.project.mapper.EmpMapper">
+
+	<select id="getEmpInfo" resultType="Employee"
+		parameterType="String">
+		select emp_id, emp_nm, dept_nm from tbl_emp join
+		tbl_dept on tbl_emp.dept_id
+		= tbl_dept.dept_id where tbl_emp.emp_nm
+		like '%'||#{emp_nm}||'%'
+	</select>
+
+	<select id="getDetailInfo" resultType="Employee"
+		parameterType="Employee">
+		select e.emp_id
+		, e.emp_nm
+		, d.dept_nm
+		, e.teleno
+		, e.road_nm
+		, listagg(h.hobby_nm, ',') within group ( order by h.hobby_nm desc) as
+		hobby_nm
+		,listagg(h.hobby_id, ',') within group ( order by h.hobby_id desc) as hobby_id
+		from tbl_emp e
+		inner join tbl_emp_hobby eh
+		on e.emp_id = eh.emp_id
+		inner join tbl_hobby h
+		on h.hobby_id = eh.hobby_id
+		inner join tbl_dept d
+		on d.dept_id = e.dept_id
+		where e.emp_id = #{emp_id}
+		group by e.emp_id, e.emp_nm, d.dept_nm, e.teleno, e.road_nm
+	</select>
+	<select id="getDeptInfo" resultType="Employee">
+		select dept_nm, dept_id
+		from (
+		select rownum rn, dept_id, dept_nm
+		from (
+		select dept_id, dept_nm
+		from tbl_dept
+		order by dept_id asc
+		)
+		)
+		where rn >=5
+	</select>
+	<select id="getHobbyNm" resultType="Employee">
+		select hobby_nm, hobby_id from tbl_hobby
+	</select>
+	<insert id="regiEmp" parameterType="hashMap">
+		insert into tbl_emp values(#{emp_id}, #{emp_nm}, #{teleno}, #{road_nm}, #{dept_id})
+	</insert>
+	<insert id="regiHobby" parameterType="hashMap">
+		insert into tbl_emp_hobby values(#{emp_id}, #{hobby_id})
+	</insert>
+    <delete id="deleteEmp" parameterType="String">
+        delete from tbl_emp where emp_id = #{emp_id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/default_layout}">
+<th:block layout:fragment="head">
+	<title>Spring Boot</title>
+	<!--/* 이 영역에 공통으로 사용할 css, js library를 선언한다. */-->
+	<link th:href="@{/css/common.css}" rel="stylesheet" />
+	<!--<script type="text/javascript" th:src="@{/js/home.js}"/>-->
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+</th:block>
+<body>
+	<script type="text/javascript" th:inline="javascript">
+		function clickevent(id, nm, deptNm){
+			var param = {
+							emp_id : id
+							, emp_nm : nm
+							, dept_nm : deptNm
+						};
+			var url = "/home/detail";		
+			
+			$.ajax({
+				type : "POST"
+				, url : url
+				, async : false
+				, data : param
+				,success : function(list){
+					var id = list[0].emp_id;
+					var nm = list[0].emp_nm;
+					var deptNm = list[0].dept_nm; //select
+					var teleno = list[0].teleno;
+					var roadNm = list[0].road_nm;
+					var hobbyId = list[0].hobby_id.split(","); //check
+					
+					$(".id").val(id);
+					$(".nm").val(nm);
+					$(".telno").val(teleno);
+					$(".roadNm").val(roadNm);
+					$('.dept').find('option[value='+deptNm+']').prop("selected",true);
+					
+					for(var i=0; i<hobbyId.length; i++){
+						$("input:checkbox[class=hobby][value='"+hobbyId[i]+"']").prop("checked",true);
+					}
+				}
+				,error : function(){
+					alert("다시 시도해주세요.");
+				}
+			})
+		}
+		
+		function register(){
+			var hobbyChecked = "";
+			var hobbyId = ['01','02','03','04','05','06'];
+			
+			if($(".id").val() == ""){
+				alert("ID를 입력해주세요.");
+				$(".id").focus();
+				return false;
+			}else if($(".nm").val() == ""){
+				alert("사원명을 입력해주세요.");
+				$(".nm").focus();
+				return false;
+			}else if($(".telno").val() == ""){
+				alert("전화번호를 입력해주세요.");
+				$(".telno").focus();
+				return false;
+			}else  if($(".roadNm").val() == ""){
+				alert("주소를 입력해주세요.");
+				$(".roadNm").focus();
+				return false;
+			}
+			for(var i=0; i<hobbyId.length; i++){
+				if($("input:checkbox[class=hobby][value='"+hobbyId[i]+"']").is(":checked") == true){
+					hobbyChecked += $("input:checkbox[class=hobby][value='"+hobbyId[i]+"']:checked").val()+",";
+				}
+			}
+			$("input[name=hobby_id]").val(hobbyChecked);
+			$("#infoForm").attr("action", "/home/register");
+			$("#infoForm").submit();
+		}
+	
+		function update(){
+			var hobbyChecked;
+			
+			for(var i=0; i<6; i++){
+				hobbyChecked += $("input:checkbox[class=hobby]:checked").val()+",";
+			}
+			
+			$("input[name=hobby_id]").val(hobbyChecked);
+			$("#infoForm").attr("action", "/home/register");
+			$("#infoForm").submit();
+		}
+		
+		function deleteInfo(){
+
+			$("#infoForm").attr("action", "/home/deleteInfo");
+			$("#infoForm").submit();
+		}
+		
+		function search(){
+			$("#infoForm").attr("action", "/home/search");
+			$("#infoForm").attr("method", "get");
+			$("#infoForm").submit();
+		}
+	</script>
+	<th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
+	<!--			$("input[name=hobby_id]").val(hobbyChecked);
+					var hobbyChecked;
+			
+			for(var i=0; i<6; i++){
+				if($("input:checkbox[class=hobby]:checked") == true){
+					hobbyChecked += $("input:checkbox[class=hobby]:checked").val()+",";
+				}
+			}-->
+	<div layout:fragment="content" class="content">
+
+	<table class="manageTbl" border="1">
+	<tr><td align="center" valign="top" class="manageTd">
+
+		<table class="titleTbl" border="1">
+		<tr><td align="center" width="50%" class="orgTd">조직도</td><td align="center" width="50%" class="empTd">사용자관리</td></tr>
+		</table>
+		</td></tr>		
+		</table>
+		
+		<form id="infoForm">
+		<table class="searchTbl" border="1"><tr><td width="10%" align="center" class="searchTd">이름</td>
+			<td width="82%" align="center" valign="middle"><input class="input" type="text" name="emp_nm"></td>
+			<td width="8%" align="center"><button class="searchButton" th:onclick="search();">검색</button></td></tr>
+		</table>
+
+		<table class="infoTbl" border="1">
+			<tr class="infoTitle"><td>&nbsp;ID</td><td>&nbsp;사원명</td><td>&nbsp;부서명</td></tr>
+			
+				<tr th:each="employee : ${employeeList}" style="cursor: pointer;" th:onclick="clickevent([[${employee.emp_id}]],[[${employee.emp_nm}]],[[${employee.dept_nm}]])">
+					<td class="infoTd" th:text="${employee.emp_id}"></td>
+					<td class="infoTd" th:text="${employee.emp_nm}"></td>
+					<td class="infoTd" th:text="${employee.dept_nm}"></td>
+	<!-- 
+	 -->
+				</tr>
+			</th:block>
+		</table>
+		<table class="regiTbl" border="1">
+			<tr><td class="regiTitle" width="20%">&nbsp;ID</td><td align="center" width="80%"><input name="emp_id" class="inputBox id"></td></tr>
+			<tr><td class="regiTitle" width="20%">&nbsp;사원명</td><td align="center" width="80%"><input name="emp_nm" class="inputBox nm" ></td></tr>
+			<tr><td class="regiTitle">&nbsp;부서</td>
+				<td width="80%">&nbsp;
+					<select name="dept_id" class="selectBox dept">
+						<option th:each="deptLists : ${deptList}" th:value="${deptLists.dept_id}" th:text="${deptLists.dept_nm}"></option>
+					</select>
+				</td></tr>
+			<tr><td class="regiTitle">&nbsp;전화번호</td><td align="center" width="80%"><input name="teleno" class="inputBox telno"></td></tr>
+			<tr><td class="regiTitle">&nbsp;주소</td><td align="center" width="80%"><input name="road_nm" class="inputBox roadNm"></td></tr>
+			<tr><td class="regiTitle">&nbsp;취미</td>
+			<td class="checkTd" align="center" width="80%"><input type="checkbox" th:each="hobbyLists, num : ${hobbyList}" class="hobby"  th:value="${hobbyLists.hobby_id}" th:text="${hobbyLists.hobby_nm}"></td></tr>
+			<input type="hidden" name="hobby_id" class="hobby_id"/>
+		</table>	
+
+		<table class="btnTbl">
+		<tr>
+			<td><button type="button" class="btns" style="cursor: pointer;" th:onclick="register()">신규 등록</button></td>
+			<td><button class="btns" th:onclick="update()">저장</button></td>
+			<td><button class="btns" th:onclick="deleteInfo()">삭제</button></td>
+		</tr>
+		
+		</table>
+		</form>
+
+
+<!-- 
+		<table class="infoTbl" border="1">
+			<tr><th>ID</th><th>사원명</th><th>부서</th></tr>
+			<th:block th:each="employee : ${employeeList}">
+				<tr>
+					<td th:text="${ employee.emp_id }"></td>
+					<td th:text="${ employee.emp_nm }"></td>
+					<td th:text="${ employee.dept_nm }"></td>
+				</tr>
+			</th:block>
+		</table>
+ -->		
+ <!-- 
+		<table class="regiTbl" border="1">
+			<tr th:each="employee : ${employeeList}"><td width="20%">ID</td>
+		    	<td align="center" width="80%">
+				<input class="inputBox" th:text="${employee.emp_id}"></td></tr>
+			<tr><td width="20%">사원명</td>
+				<td align="center" width="80%">
+				<input class="inputBox" th:text="${employee.emp_nm}"></td></tr>
+			<tr><td>부서</td>
+				<td align="center" width="80%">
+				<input class="inputBox" th:text="${employee.dept_nm}"></td></tr>
+			<tr><td>전화번호</td><td align="center" width="80%">
+				<input class="inputBox" th:text="${employee.teleno}"></td></tr>
+			<tr><td>주소</td><td align="center" width="80%">
+				<input class="inputBox" th:text="${employee.road_nm}"></td></tr>
+			<tr><td>취미</td><td align="center" width="80%">				
+				<input class="inputBox" th:text="${employee.hobby_nm}"></td></tr>
+		</table>	
+  -->
+	</div>
+	<th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>
+</body>
+
+</html>
+
+
+
+
+
+
+
+<!-- 
+		<table class="regiTbl" border="1">
+			<tr th:each="employee : ${employeeList}"><td width="20%">ID</td>
+													<td align="center" width="80%"><input class="inputBox" th:text="${employee.emp_id}"></td></tr>
+			<tr><td width="20%">사원명</td><td align="center" width="80%"><input class="inputBox" th:text="${employee.emp_nm}"></td></tr>
+			<tr><td>부서</td>
+				<td align="center" width="80%" th:each="department : ${departmentList}">
+					<select id="inputState" class="selectBox">
+						<option selected="selected">부서</option>
+						<option th:text="${ department.dept_nm }"></option>	
+					</select>
+				</td></tr>
+			<tr><td>전화번호</td><td align="center" width="80%"><input class="inputBox"></td></tr>
+			<tr><td>주소</td><td align="center" width="80%"><input class="inputBox"></td></tr>
+			<tr><td>취미</td><td align="center" width="80%"><input type="checkbox"><input type="checkbox"><input type="checkbox"><input type="checkbox"><input type="checkbox"></td></tr>
+		</table>	
+	</div>
+	<th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>
+</body>
+</html>
+ -->		
+
+<!--  		<h2>This is Content</h2>
+		<hr>
+		아래의 코드를 추가 합니다.
+		 home.html
+		<table border="1">
+			<tr>
+				<th>id</th>
+				<th>name</th>
+				<th>email</th>
+			</tr>
+			<th:block th:each="salary : ${salaryList}">
+				<tr>
+					<td th:text="${ salary.id }"></td>
+					<td th:text="${ salary.name }"></td>
+					<td th:text="${ salary.email }"></td>
+				</tr>
+			</th:block>
+		</table>
+		-->

@@ -1,0 +1,216 @@
+body, html {
+	height: 100%;
+	font-family: "굴림1";
+}
+body {
+	margin-top: 0;
+	margin-bottom: 0;
+	padding: 0;
+	margin-left: 2px;
+	margin-right: 2px;
+	
+}
+@font-face {
+	font-family: "굴림1";
+	src: url("굴림1.TTF");
+}
+
+.header {
+	height: 20%;
+}
+
+.ciTbl {
+	background-color:  #EAEAEA;
+	width: 100%;
+	height: 80px;
+	
+}
+
+.ciTd {
+	vertical-align: middle;
+	font-weight: bold;
+	font-size: 22px;
+
+}
+.ciImg {
+	text-align: center;
+	vertical-align: middle;
+}
+.topTbl {
+/*	background-color:#133F91;*/
+	width: 100%;
+	height: 20px;
+	background-color: azure;
+}
+.topImg {
+	text-align: center;
+	vertical-align: middle;
+}
+.topTd {
+	vertical-align: middle;
+	font-weight: 600;	
+	color: #133F91;
+}
+.iconTbl {
+	position: absolute;
+	top: -20px;
+	right: 400px;
+	border-collapse: separate;
+	border-spacing: 18px;
+}
+.topInput {
+	position: absolute;
+	top: 1px;
+	right: 10px;
+	border-radius: 5px;
+	border-color: #133F91;
+	font-family: "굴림1";
+	height: 20px;
+	width: 150px;
+
+	
+}
+.inputBtn {
+	border: 0;
+	outline: 0;
+	position: absolute;
+	top: 5px;
+	right: 10px;
+	background-color: transparent;
+}
+
+
+.content {
+	height: 70%;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0px;
+	margin: 0px;
+}
+.manageTbl {
+	height: 120%;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	border-spacing: 0px;
+	padding: 0px;
+	margin: 0px;
+/*	position: absolute;
+	top: 150px;
+	left: 0;*/
+}
+.manageTd {
+	margin: 0px;
+	padding: 0px;
+	
+}
+.titleTbl {
+	height: 60px;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	margin: 0px;
+    padding: 0px;
+    border-style: hidden;
+    border-spacing: 0px;
+    font-weight: bold;
+    
+}
+
+
+.orgTd:hover {
+	background-color: #133F91;
+}
+.empTd:hover {
+	background-color: #133F91;
+}
+
+.searchTbl {
+	width: 94%;
+	height: 50px;
+	position: absolute;
+	top: 200px;
+	left: 46px;
+	border-style: hidden;
+	border-spacing: 0px;
+	font-weight: bold;
+}
+.searchTd {
+	background-color:  #EAEAEA;
+	
+	
+}
+.input {
+	width: 99%;
+	height: 70%;
+	align-content: center;
+	
+}
+.searchButton {
+	width: 95%;
+	height: 90%;
+}
+.infoTbl {
+	width: 694px;
+	/*height: 35%;*/
+	position: absolute;
+	top: 290px;
+	left: 46px;
+	border-spacing: 0px;
+	border-style: hidden;	
+}
+.infoTitle {
+	width: 885px;
+	height: 45px;	
+	background-color: #EAEAEA;
+	font-weight: bold;
+}
+.infoTd {
+	width: 885px;
+	height: 40px;
+}
+.regiTbl {
+	width: 694px;
+	height: 35%;
+	position: absolute;
+	top: 290px;
+	right: 46px;
+	border-spacing: 0px;
+	border-style: hidden;	
+}
+.regiTitle {
+	background-color: #EAEAEA;
+	font-weight: bold;
+}
+
+.inputBox {
+	width: 95%;
+	height: 68%;
+}
+.selectBox {
+	width: 40%;
+	height: 89%;
+}
+
+.footer {
+	/*background-color: yellow;*/
+	height: 1%;
+	padding: 0px;
+	margin: 0px;
+	
+}
+.btnTbl {
+	border-collapse: separate;
+	border-spacing: 18px;
+	position: absolute;
+	top: 580px;
+	right: 30px; 
+	
+}
+.btns {
+	width: 98px;
+	height: 40px;
+	
+	
+}
