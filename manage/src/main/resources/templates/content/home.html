@@ -5,7 +5,6 @@
 	layout:decorate="~{layout/default_layout}">
 <th:block layout:fragment="head">
 	<title>Spring Boot</title>
-	<!--/* 이 영역에 공통으로 사용할 css, js library를 선언한다. */-->
 	<link th:href="@{/css/common.css}" rel="stylesheet" />
 	<!--<script type="text/javascript" th:src="@{/js/home.js}"/>-->
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -170,50 +169,3 @@
 
 </html>
 
-
-
-
-
-
-
-<!-- 
-		<table class="regiTbl" border="1">
-			<tr th:each="employee : ${employeeList}"><td width="20%">ID</td>
-													<td align="center" width="80%"><input class="inputBox" th:text="${employee.emp_id}"></td></tr>
-			<tr><td width="20%">사원명</td><td align="center" width="80%"><input class="inputBox" th:text="${employee.emp_nm}"></td></tr>
-			<tr><td>부서</td>
-				<td align="center" width="80%" th:each="department : ${departmentList}">
-					<select id="inputState" class="selectBox">
-						<option selected="selected">부서</option>
-						<option th:text="${ department.dept_nm }"></option>	
-					</select>
-				</td></tr>
-			<tr><td>전화번호</td><td align="center" width="80%"><input class="inputBox"></td></tr>
-			<tr><td>주소</td><td align="center" width="80%"><input class="inputBox"></td></tr>
-			<tr><td>취미</td><td align="center" width="80%"><input type="checkbox"><input type="checkbox"><input type="checkbox"><input type="checkbox"><input type="checkbox"></td></tr>
-		</table>	
-	</div>
-	<th:block layout:fragment="footer" th:include="@{/fragments/footer}"></th:block>
-</body>
-</html>
- -->		
-
-<!--  		<h2>This is Content</h2>
-		<hr>
-		아래의 코드를 추가 합니다.
-		 home.html
-		<table border="1">
-			<tr>
-				<th>id</th>
-				<th>name</th>
-				<th>email</th>
-			</tr>
-			<th:block th:each="salary : ${salaryList}">
-				<tr>
-					<td th:text="${ salary.id }"></td>
-					<td th:text="${ salary.name }"></td>
-					<td th:text="${ salary.email }"></td>
-				</tr>
-			</th:block>
-		</table>
-		-->
