@@ -59,7 +59,7 @@
       merge
           into tbl_emp
           using tbl_dept
-          on (tbl_dept.dept_id = #{dept_id} AND tbl_emp.emp_id= #{emp_id})
+          on (tbl_dept.dept_id = #{dept_id} and tbl_emp.emp_id= #{emp_id})
           when matched then
               update
                   set tbl_emp.emp_nm = #{emp_nm},
