@@ -19,7 +19,7 @@ repositories {
 }
 
 bootBuildImage {
-	imageName = "${project.name}"
+	imageName = "manage"
 }
 
 dependencies {
